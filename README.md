@@ -1,9 +1,6 @@
-# Ratelix
+# Ratelix [![CI](https://github.com/elixir-plug/mime/actions/workflows/ci.yml/badge.svg)](https://github.com/GBMayombe/ratelix/actions/workflows/ci.yml) [![Hex Docs](https://img.shields.io/badge/docs-hexpm-blue.svg)](https://hexdocs.pm/ratelix/)
 
-
-[![CI](https://github.com/elixir-plug/mime/actions/workflows/ci.yml/badge.svg)](https://github.com/GBMayombe/ratelix/actions/workflows/ci.yml)
-
-Ratelix is an Elixir library that provides robust, concurrent-safe rate limiting using two classic algorithms: **Leaky Bucket** and **Token Bucket**. It is designed for use in distributed systems, APIs, background jobs, or anywhere you need to control the rate of operations.
+An Elixir library that provides robust, concurrent-safe rate limiting using two classic algorithms: **Leaky Bucket** and **Token Bucket**. It is designed for use in distributed systems, APIs, background jobs, or anywhere you need to control the rate of operations.
 
 ## Features
 
@@ -20,7 +17,7 @@ Add `ratelix` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:ratelix, "~> 0.2.0"}
+    {:ratelix, "~> 0.3.0"}
   ]
 end
 ```

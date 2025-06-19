@@ -1,7 +1,8 @@
 defmodule Ratelix.MixProject do
   use Mix.Project
 
-  @version "0.2.0"
+  @version "0.3.0"
+  @source_url "https://github.com/GBMayombe/ratelix"
 
   def project do
     [
@@ -9,6 +10,7 @@ defmodule Ratelix.MixProject do
       version: @version,
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
+      description: description(),
       aliases: aliases(),
       deps: deps(),
       docs: docs(),
@@ -56,11 +58,20 @@ defmodule Ratelix.MixProject do
     ]
   end
 
+  defp description do
+    """
+    Ratelix is a rate limiting library for Elixir applications.
+    It provides a simple and flexible way to implement rate limiting
+    strategies to control the flow of requests in your application.
+    """
+  end
+
   defp docs do
     [
       main: "Ratelix",
       extras: ["README.md", "CHANGELOG.md"],
-      source_ref: "v#{@version}"
+      source_ref: "v#{@version}",
+      source_url: @source_url
     ]
   end
 
@@ -79,9 +90,9 @@ defmodule Ratelix.MixProject do
   defp package do
     [
       name: :ratelix,
-      links: %{
-        "GitHub" => ""
-      }
+      licenses: ["Apache-2.0"],
+      maintainers: ["Gradie B. Mayombe"],
+      links: %{"GitHub" => @source_url}
     ]
   end
 
