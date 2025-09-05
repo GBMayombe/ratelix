@@ -1,7 +1,7 @@
 defmodule Ratelix.MixProject do
   use Mix.Project
 
-  @version "0.3.0"
+  @version "1.0.0"
   @source_url "https://github.com/GBMayombe/ratelix"
 
   def project do
@@ -39,8 +39,7 @@ defmodule Ratelix.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
-      mod: {Ratelix.Application, []}
+      extra_applications: [:logger]
     ]
   end
 

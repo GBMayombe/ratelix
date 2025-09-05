@@ -1,16 +1,19 @@
 defmodule RatelixTest do
   use ExUnit.Case
 
-  alias Ratelix.DynamicSupervisor, as: DynamicSup
   alias Ratelix.{LeakyBucket, TokenBucket}
 
+  setup do
+    _sup = start_supervised!(Ratelix.Supervisor)
+
+    :ok
+  end
+
   @name :server
+  @opts [algorithm: :leaky_bucket, capacity: 1, interval: 1]
   describe "leaky bucket" do
     setup do
-      opts = [algorithm: :leaky_bucket, capacity: 1, interval: 1]
-
-      {:ok, pid} = Ratelix.start_process(@name, opts)
-      on_exit(fn -> DynamicSupervisor.terminate_child(DynamicSup, pid) end)
+      assert {:ok, _worker} = Ratelix.start_process(@name, @opts)
 
       :ok
     end
@@ -20,7 +23,7 @@ defmodule RatelixTest do
 
       assert :ok = Ratelix.wait_for_turn(@name)
 
-      # # Simulate a delay to allow the queue to be emptied
+      # Simulate a delay to allow the queue to be emptied
       Process.sleep(1000)
 
       assert %LeakyBucket{length: 0, queue: ^queue} =
@@ -34,14 +37,12 @@ defmodule RatelixTest do
     end
   end
 
+  @opts [algorithm: :token_bucket, capacity: 5, rate: 1, interval: 1]
   describe "token bucket" do
     setup do
-      opts = %{algorithm: :token_bucket, capacity: 5, rate: 1, interval: 1}
+      assert {:ok, _worker} = Ratelix.start_process(@name, @opts)
 
-      {:ok, pid} = Ratelix.start_process(@name, Map.to_list(opts))
-      on_exit(fn -> DynamicSupervisor.terminate_child(DynamicSup, pid) end)
-
-      %{opts: opts}
+      %{opts: Map.new(@opts)}
     end
 
     test "success: wait_for_turn/1", %{opts: %{capacity: capacity}} do
